@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= loginData.title %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<body>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Tambahkan tautan ke jQuery -->
+  <div class="container align-content-center p-5 mt-5">
+    <div class="card shadow-lg w-50 mt-3 mx-auto">
+      <div class="card-header bg-gradient bg-light-subtle">
+        <h5 class="card-title text-center">Login View</h5>
+      </div>
+
+      <div class="card-body">
+        <form action="/post_login" method="POST">
+          <div class="row">
+
+            <div class="col-md-8">
+              <label for="" class="form-label">NIP :</label>
+              <input type="text" name="uniqueId" class="form-control" id="nipInput" oninput="validateNIPInput(this)">
+            </div>
+            
+            <div class="col-md-8 pt-3">
+              <label for="" class="form-label">Password :</label>
+              <input type="password" name="password" class="form-control">
+            </div>
+
+            <div class="col-md-8 pt-3">
+              <label for="" class="form-label">Role :</label>
+              <input type="text" name="role" class="form-control">
+            </div>
+
+            <!-- <div class="col-md-5 pt-3">
+              <label for="" class="form-label">Login Sebagai :</label>
+              <select name="role" id="role" class="form-select">
+                <option value="" class="form-control" selected>-</option>
+                <option value="guru" class="form-control">Guru</option>
+                <option value="siswa" class="form-control">Siswa</option>
+              </select>
+            </div> -->
+          </div>
+      </div>
+          <div class="card-footer bg-light text-center">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script>
+    function validateNIPInput(input) {
+      var regex = /^[0-9]*$/;
+      if (!regex.test(input.value)) {
+        toastr.error('NIP harus terdiri dari angka.');
+      }
+    }
+  </script>
+</body>
+</html>
