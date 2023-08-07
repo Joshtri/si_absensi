@@ -11,11 +11,184 @@
   <%- include('layouts/header'); %>
 
 
-  <div class="container border border-danger mt-5">
-    <div class="container border border-primary">
+  <div class="container mt-5">
+    <div class="container">
       <h3>Selamat datang</h3>
-      
-      
+      <div class="card mt-3 mb-5">
+        <div class="card-header">
+          <h5 class="card-title text-center">Data Ikhtisar</h5>
+        </div>
+        <div class="card-body">
+
+          <!-- Card siswa khusus berisi data lengkap -->
+          <div class="card mb-3">
+            <div class="card-header">
+              Siswa 
+            </div>
+
+            <div class="card-body">
+              <div class="card mb-4" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Total Siswa : 30 </li>
+                </ul>
+              </div>
+              
+              <div class="row g-3 justify-content-center">
+                <div class="col-3">
+                    <div class="card text-bg-light mb-3" style="max-width: 13rem; max-height: 12rem;">
+                    <div class="card-header fw-bold">Total Siswa Kelas 10</div>
+                    <div class="card-body">
+                      <h6 class="card-title text-center">10 orang</h6>
+                    
+                    </div>
+                    
+                  </div>
+                  <ul class="list-group col-lg-10 ">
+                    <li class="list-group-item list-group-item-light list-group-item-action">MIPA : 5</li>
+                    <li class="list-group-item list-group-item-light list-group-item-action">IPS : 3</li>
+                    <li class="list-group-item list-group-item-light list-group-item-action">BAHASA : 2</li>
+                  </ul>
+                </div>
+
+                <div class="col-3">
+                  <div class="card text-bg-light mb-3" style="max-width: 13rem; max-height: 12rem;">
+                    <div class="card-header fw-bold">Total Siswa Kelas 11</div>
+                    <div class="card-body">
+                      <h6 class="card-title text-center">10 orang</h6>
+                    </div>
+                  </div>
+
+                  <ul class="list-group col-lg-10 ">
+                    <li class="list-group-item list-group-item-light list-group-item-action">MIPA : 5</li>
+                    <li class="list-group-item list-group-item-light list-group-item-action">IPS : 3 </li>
+                    <li class="list-group-item list-group-item-light list-group-item-action">BAHASA : 2</li>
+                    
+                  </ul>
+                </div>
+
+                <div class="col-3">
+                  <div class="card text-bg-light mb-3" style="max-width: 13rem; max-height: 12rem;">
+                    <div class="card-header fw-bold">Total Siswa Kelas 12</div>
+                    <div class="card-body">
+                      <h6 class="card-title text-center">10 orang</h6>
+                    </div>
+                  </div>
+
+                  <ul class="list-group col-lg-10 ">
+                    <li class="list-group-item list-group-item-light list-group-item-action">MIPA : 5</li>
+                    <li class="list-group-item list-group-item-light list-group-item-action">IPS : 3</li>
+                    <li class="list-group-item list-group-item-light list-group-item-action">BAHASA : 2</li>
+                  </ul>
+                </div>
+
+              </div>
+
+              <div class="text-center">
+                <a href="/data/data_siswa" class="btn btn-secondary mt-5 link-light">Go to Data Siswa<i class="mx-1 fa-solid fa-arrow-up-right-from-square"></i></a>
+              </div>
+              
+            </div>
+
+            
+          </div>
+
+          <!-- Card khusus MAPEL -->
+          <div class="card mt-5">
+            <div class="card-header">
+              Jadwal Mata Pelajaran
+            </div>
+            <div class="card-body">
+              <table class="table-hover table table-bordered table-responsive table-light">
+                <thead>
+                  <th class="text-center" colspan="7">Hari</th>
+                  <tr>
+                    <th class="text-center">Kelas</th>
+                    <th class="text-center">Senin</th>
+                    <th class="text-center">Selasa</th>
+                    <th class="text-center">Rabu</th>
+                    <th class="text-center">Kamis</th>
+                    <th class="text-center">Jumat</th>
+                    <th class="text-center">Sabtu</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr class="text-center">
+                    <td>X MIA 1
+                      <td>
+                        Data Mining <br>
+                        Algo II <br>
+                        Struktur Data
+                      </td>
+                    </td>
+                  </tr>
+
+                  <tr class="text-center">
+                    <td>X MIA 2
+                      <td>
+                        Matematika Diskrit <br>
+                        Pemrograman Berorientasi Objek <br>
+                        Struktur Data
+                      </td>
+                    </td>
+
+                    <td>
+                      Matematika Diskrit <br>
+                      Pemrograman Berorientasi Objek <br>
+                      Struktur Data
+                    </td>
+                
+                  </tr>
+
+
+                    <td>Data Mining</td>
+                    <td>Data Mining</td>
+                    <td>Data Mining</td>
+                    <td>Data Mining</td>
+                  <!-- Isi jadwal mata pelajaran di sini -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <div class="row g-3 mt-5 justify-content-center">
+            <div class="col-3">
+
+              <div class="card text-bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                  <h5 class="card-title">Dark card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-3">
+
+              <div class="card text-bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header">Total Guru</div>
+                <div class="card-body">
+                  <p class="card-text">5 Guru</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-3">
+              <div class="card text-bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header">Total Mapel</div>
+                <div class="card-body">
+                  <p class="card-text">10 Mapel</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          Kalender
+        </div>
+      </div>
     </div>
   </div>
 

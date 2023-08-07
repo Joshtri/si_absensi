@@ -1,0 +1,33 @@
+  <!-- Kode HTML untuk modal delete -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white">Konfirmasi</h5>
+          <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          Apakah Anda ingin menghapus data ini?
+        </div>
+        <div class="modal-footer">
+          <form action="/data/delete_guru" method="POST">
+            <input type="hidden" name="id_guru" id="deleteIdInput">
+            <button type="submit" class="btn btn-primary">Iya</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $('#deleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var modal = $(this);
+        modal.find('#deleteIdInput').val(id);
+      });
+    });
+  </script>

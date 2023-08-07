@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= mapelJadwalData.title %></title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <%-include('layouts/header');%>
+  <!-- Tambahkan referensi jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <div class="container mt-5">
+    <div class="">
+      <h3 class="text-center"><%= mapelJadwalData.title %></h3>
+
+      <div class="container-sm mt-5">
+        <a href="/data/add_jadwalMapel" class="btn btn-warning mb-3 link-opacity-50-hover link-offset-2"><i class="fa-solid fa-square-plus mx-1"></i>Tambah Data</a>
+
+        <div class="d-flex float-end">
+          <div class="form-floating">
+            <input type="text" class="form-control form-control-sm mb-3" list="datalistOptions" id="search-bar" placeholder="Search">
+            <label for="search-bar"><i class="fa-solid fa-magnifying-glass mx-1"></i>Search</label>
+
+            <datalist id="datalistOptions">
+              <option value="-">-</option>
+            </datalist>
+          </div>
+        </div>
+
+        <table class="table table-responsive table-hover rounded table-bordered shadow" id="">
+          <thead class="table-dark text-center">
+            <th>No.</th>
+            <th>Nama Mapel</th>
+            <th>Nama Kelas</th>
+            <th>Hari</th>  
+            <th>Action</th>
+          </thead>
+          <tbody class="text-center">
+            <% for(let i = 0 ; i < tableJadwalMapel.length; i++) { %>
+              <tr>
+                <td><%= i + 1%></td>
+                <td><%= tableJadwalMapel[i].nama_mapel %></td>
+                <td><%= tableJadwalMapel[i].nama_kelas %></td>
+                <td><%= tableJadwalMapel[i].hari %></td>
+                <td>
+                  <a href="#" class="text-decoration-none mx-2">
+                    <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  </a>
+
+                  <a href="#" class="text-decoration-none mx-2" title="Delete" data-bs-target="#deleteModal" data-bs-toggle="modal" data-id="<%= tableJadwalMapel[i].id_jadwal_mapel %>">
+                    <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  </a>
+
+                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#detailModalJadwalMapel"
+                    data-nama_mapel="<%= tableJadwalMapel[i].nama_mapel %>",
+                    data-nama_kelas="<%= tableJadwalMapel[i].nama_kelas %>",
+                    data-jam_mulai="<%= tableJadwalMapel[i].jam_mulai %>",
+                    data-jam_selesai="<%= tableJadwalMapel[i].jam_selesai %>",
+                    data-hari="<%= tableJadwalMapel[i].hari %>"
+                  >
+                    <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  </a>
+
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <%- include('detail/detail_mapelJadwal');%>
+  <%- include('delete/delete_jadwalMapel');%>
+</body>
+</html>

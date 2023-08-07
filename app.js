@@ -10,10 +10,11 @@ const app = express();
 const dashboardRoutes = require('./routes/dashboard');
 const loginRoutes = require('./routes/login');
 const guruRoutes = require('./routes/guru');
-// const mapelRoutes = require();
+const siswaRoutes = require('./routes/siswa')
+const mapelRoutes = require('./routes/mapel');
+const kelasRoutes = require('./routes/kelas');
+const jadwalMapelRoutes = require('./routes/jadwalMapel');
 // const siswaRoutes = require();
-// const kelasRoutes = require();
-// const jadwalMapelRoutes = require();
 
 
 app.set("view engine", "ejs")
@@ -23,7 +24,7 @@ app.use(bodyParser.json());
 
 app.use("/", dashboardRoutes);
 app.use("/",loginRoutes);
-app.use("/data",guruRoutes);
+app.use("/data",guruRoutes,siswaRoutes, mapelRoutes,kelasRoutes,jadwalMapelRoutes);
 
 
 // Inisialisasi middleware session
@@ -43,7 +44,7 @@ app.set("views",[
 app.use(express.static(__dirname + '/public'));
 
 
-app.listen(3000, (err)=>{
+app.listen(3001, (err)=>{
   if(err){
     throw err;
   }

@@ -11,49 +11,80 @@
 </head>
 <body>
   <%- include('layouts/header'); %>
+     <!-- Tambahkan referensi jQuery -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  
 
   <div class="container mt-5">
     <div class="">
-      <h3 class="text-center">Data Guru</h3>
+      <h3 class="text-center"><%= guruData.title %></h3>
 
       <div class="container-sm mt-5">
-        <div class="d-flex">
-          <a href="/data/add_guru" class="btn btn-warning mb-3 link-opacity-50-hover link-offset-2"><i class="fa-solid fa-square-plus mx-1"></i>Tambah Data</a>
+        <a href="/data/add_guru" class="btn btn-warning mb-3 link-opacity-50-hover link-offset-2"><i class="fa-solid fa-square-plus mx-1"></i>Tambah Data</a>
+
+
+        <div class="d-flex float-end">
+          <div class="form-floating">
+            <input type="text" class="form-control form-control-sm mb-3" list="datalistOptions" id="search-bar" placeholder="Search">
+            <label for="search-bar"><i class="fa-solid fa-magnifying-glass mx-1"></i>Search</label>
+
+            <datalist id="datalistOptions">
+              <option value="-">-</option>
+            </datalist>
+          </div>
         </div>
+          
+
 
         <table class="table table-responsive table-hover rounded table-bordered shadow" id="">
           <thead class="table-dark text-center">
             <th>No.</th>
             <th>Nama Guru</th>
-            <th>Email</th>
             <th>NIP</th>  
+            <th>Email</th>
             <th>Action</th>
           </thead>
           <tbody class="text-center">
-            <td>1</td>
-            <td>Anton</td>
-            <td>alex@gmail.com</td>
-            <td>2006080</td>
-            <td>
-              <a href="#" class="text-decoration-none mx-2">
-                <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover"></i>
-              </a>
+            <% for(let i = 0; i < tableGuru.length; i++) { %>
+              <tr>
+                <td><%= i + 1 %></td>
+                <td><%= tableGuru[i].nama_lengkap%></td>
+                <td><%= tableGuru[i].nip%></td>
+                <td><%= tableGuru[i].email%></td>
+                <td>
+                  <a href="#" class="text-decoration-none mx-2">
+                    <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  </a>
 
-              <a href="#" class="text-decoration-none mx-2">
-                <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover"></i>
-              </a>
+                  <a href="#" class="text-decoration-none mx-2" title="Delete" data-bs-target="#deleteModal" data-bs-toggle="modal" data-id="<%= tableGuru[i].id_guru %>">
+                    <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  </a>
 
-              <a href="#" class="text-decoration-none mx-2">
-                <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover"></i>
-              </a>
-
-            </td>
+                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#detailModalGuru"
+                  
+                  data-nama_guru="<%= tableGuru[i].nama_lengkap%>",
+                  data-nip="<%= tableGuru[i].nip%>",
+                  data-email="<%= tableGuru[i].email%>",
+                  data-role="<%= tableGuru[i].role%>",
+                  data-no_hp="<%= tableGuru[i].no_hp%>",
+                  data-alamat="<%= tableGuru[i].alamat%>",
+                  data-jenis_kelamin="<%= tableGuru[i].jenis_kelamin%>"
+                  >
+                    <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  </a>
+                </td>
+              </tr>
+            <% } %>
           </tbody>
         </table>
       </div>
 
     </div>
   </div>
+
+  <%- include('detail/detail_guru'); %>
+  <%- include('delete/delete_guru'); %>
 
 </body>
 </html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= mapelData.title %></title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <%-include('layouts/header');%>
+      <!-- Tambahkan referensi jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+      
+  <div class="container mt-5">
+    <div class="">
+      <h3 class="text-center"><%= mapelData.title %></h3>
+
+      <div class="container-sm mt-5">
+        <a href="/data/add_mapel" class="btn btn-warning mb-3 link-opacity-50-hover link-offset-2"><i class="fa-solid fa-square-plus mx-1"></i>Tambah Data</a>
+
+        <div class="d-flex float-end">
+          <div class="form-floating">
+            <input type="text" class="form-control form-control-sm mb-3" list="datalistOptions" id="search-bar" placeholder="Search">
+            <label for="search-bar"><i class="fa-solid fa-magnifying-glass mx-1"></i>Search</label>
+
+            <datalist id="datalistOptions">
+              <option value="-">-</option>
+            </datalist>
+          </div>
+        </div>
+
+        <table class="table table-responsive table-hover rounded table-bordered shadow" id="">
+          <thead class="table-dark text-center">
+            <th>No.</th>
+            <th>Nama Mata Pelajaran</th>
+            <th>Nama Pengajar</th>
+            <th>Action</th>
+          </thead>
+          <tbody class="text-center">
+            <% for(var i = 0; i < tableMapel.length; i++) { %>
+              <tr>
+                <td><%= i + 1%></td>
+                <td><%= tableMapel[i].nama_mapel %></td>
+                <td><%= tableMapel[i].nama_pengajar %></td>
+                <td>
+                  <a href="#" class="text-decoration-none mx-2">
+                    <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  </a>
+    
+                  <a href="#" class="text-decoration-none mx-2" title="Delete" data-bs-target="#deleteModal" data-bs-toggle="modal" data-id="<%= tableMapel[i].id_mapel %>">
+                    <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  </a>
+    
+                  <a class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#detailModalMapel"
+    
+                  data-nama_mapel="<%= tableMapel[i].nama_mapel %>",
+                  data-nama_pengajar="<%= tableMapel[i].nama_pengajar %>"
+                  >
+                    <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  </a>
+    
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+  <%- include('detail/detail_mapel'); %>
+  <%- include('delete/delete_mapel'); %>
+
+</body>
+</html>
