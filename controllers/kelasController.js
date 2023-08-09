@@ -6,6 +6,7 @@ exports.kelasPage = (req,res)=>{
   }
 
   const query = 'SELECT * FROM kelas'
+  // const query = 'SELECT *, UPPER(nama_kelas) AS nama_kelas_upper FROM kelas';
   db.query(query, (err,results)=>{
 
     if(err){
@@ -14,7 +15,8 @@ exports.kelasPage = (req,res)=>{
     else if(!err){
       res.render('data_kelas',{
         kelasData:data,
-        tableKelas: results
+        tableKelas: results,
+        notifSuksesTambah : false
       });
     }
   });
@@ -39,6 +41,10 @@ exports.addKelas = (req,res)=>{
     nama_wali_kelas : req.body.nama_wali_kelas
   }
 
+  const data ={
+    title:"Data Kelas"
+  }
+
   const query = 'INSERT INTO kelas SET ?';
 
   db.query(query,kelasFields,(err,results)=>{
@@ -47,7 +53,11 @@ exports.addKelas = (req,res)=>{
     }
 
     else if (!err){
-      res.send('Success');
+      res.render('data_kelas',{
+        kelasData:data,
+        tableKelas: results,
+        notifSuksesTambah : true
+      });
     }
 
   })

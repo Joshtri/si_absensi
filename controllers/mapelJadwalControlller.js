@@ -14,7 +14,10 @@ exports.mapelJadwalPage = (req,res)=>{
     else if(!err){
       res.render('data_mapelJadwal',{
         mapelJadwalData : data,
-        tableJadwalMapel : results
+        tableJadwalMapel : results,
+
+        //notifikasi condition.
+        notifSuksesTambah:false
       })
     }
   });
@@ -40,6 +43,11 @@ exports.addMapelJadwal = (req,res)=>{
     jam_selesai : req.body.jam_selesai,
     hari : req.body.hari
   }
+
+  const data = {
+    title : "Data Jadwal Mapel"
+  }
+
   const query = 'INSERT INTO jadwal_mapel SET ?';
 
   db.query(query,mapelJadwalFields,(err,results)=>{
@@ -48,7 +56,14 @@ exports.addMapelJadwal = (req,res)=>{
     }
 
     else if (!err){
-      res.send('SUKSES');
+      res.render('data_mapelJadwal',{
+        mapelJadwalData : data,
+        tableJadwalMapel : results,
+        
+        //notifikasi condition
+        notifSuksesTambah:true
+
+      })
     };
   });
 }

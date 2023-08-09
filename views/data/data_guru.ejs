@@ -37,7 +37,7 @@
           
 
 
-        <table class="table table-responsive table-hover rounded table-bordered shadow" id="">
+        <table class="table table-responsive table-hover rounded table-bordered shadow" id="dataTable">
           <thead class="table-dark text-center">
             <th>No.</th>
             <th>Nama Guru</th>
@@ -83,6 +83,42 @@
     </div>
   </div>
 
+
+
+  <% if(notifSuksesTambah) { %>
+      <div class="modal fade" id="successTambahModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">
+                <i class="fa-solid fa-square-check mx-1" style="color: #2d69d2;"></i>
+                Notifikasi Tambah Data
+              </h5>
+            </div>
+
+            <div class="modal-body">
+              <p>
+                Data Guru berhasil di tambah.
+              </p>
+            </div>
+
+            <div class="modal-footer">
+              <a href="/data/data_guru" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% } %>
+
+  <script>
+    $(document).ready(function(){
+        $('#successTambahModal').modal('show')
+    });
+  </script>
+
+  
+  <script src="/js/liveSearch.js"></script>
   <%- include('detail/detail_guru'); %>
   <%- include('delete/delete_guru'); %>
 

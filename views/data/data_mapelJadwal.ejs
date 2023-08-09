@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <table class="table table-responsive table-hover rounded table-bordered shadow" id="">
+        <table class="table table-responsive table-hover rounded table-bordered shadow" id="dataTable">
           <thead class="table-dark text-center">
             <th>No.</th>
             <th>Nama Mapel</th>
@@ -44,8 +44,8 @@
               <tr>
                 <td><%= i + 1%></td>
                 <td><%= tableJadwalMapel[i].nama_mapel %></td>
-                <td><%= tableJadwalMapel[i].nama_kelas %></td>
-                <td><%= tableJadwalMapel[i].hari %></td>
+                <td class="text-uppercase"><%= tableJadwalMapel[i].nama_kelas %></td>
+                <td class="text-capitalize"><%= tableJadwalMapel[i].hari %></td>
                 <td>
                   <a href="#" class="text-decoration-none mx-2">
                     <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover"></i>
@@ -75,6 +75,40 @@
     </div>
   </div>
 
+
+  <% if(notifSuksesTambah) { %>
+      <div class="modal fade" id="successTambahModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">
+                <i class="fa-solid fa-square-check mx-1" style="color: #2d69d2;"></i>
+                Notifikasi Tambah Data
+              </h5>
+            </div>
+
+            <div class="modal-body">
+              <p>
+                Data Jadwal Mapel berhasil di tambah.
+              </p>
+            </div>
+
+            <div class="modal-footer">
+              <a href="/data/data_jadwal_mapel" class="btn btn-secondary">Tutup</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% } %>
+
+  <script>
+    $(document).ready(function(){
+        $('#successTambahModal').modal('show')
+    });
+  </script>
+
+  <script src="/js/liveSearch.js"></script>
   <%- include('detail/detail_mapelJadwal');%>
   <%- include('delete/delete_jadwalMapel');%>
 </body>

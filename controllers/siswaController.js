@@ -15,7 +15,8 @@ exports.siswaPage = (req,res)=>{
     else if(!err){
       res.render('data_siswa',{
         siswaData : data,
-        tableSiswa : results
+        tableSiswa : results,
+        notifSuksesTambah : false
       });
     }
   });
@@ -43,10 +44,15 @@ exports.addSiswa = (req,res)=>{
     nis : req.body.nis,
     password : req.body.password,
     kelas_siswa : req.body.kelas_siswa,
+    jurusan : req.body.jurusan_siswa,
     alamat : req.body.alamat,
     no_hp : req.body.no_hp,
     jenis_kelamin : req.body.jenis_kelamin
   }
+  
+  const data = {
+    title: "Data Siswa"
+  };
 
   const query = 'INSERT INTO siswa SET ?'
 
@@ -56,7 +62,11 @@ exports.addSiswa = (req,res)=>{
     }
 
     else if (!err){
-      res.send('SUKSES')
+      res.render('data_siswa',{
+        siswaData: data,
+        tableSiswa : results,
+        notifSuksesTambah : true
+      });
     }
   });
 };

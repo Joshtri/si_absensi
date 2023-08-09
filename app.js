@@ -14,7 +14,7 @@ const siswaRoutes = require('./routes/siswa')
 const mapelRoutes = require('./routes/mapel');
 const kelasRoutes = require('./routes/kelas');
 const jadwalMapelRoutes = require('./routes/jadwalMapel');
-// const siswaRoutes = require();
+const absenRoutes = require('./routes/absen');
 
 
 app.set("view engine", "ejs")
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 app.use("/", dashboardRoutes);
 app.use("/",loginRoutes);
-app.use("/data",guruRoutes,siswaRoutes, mapelRoutes,kelasRoutes,jadwalMapelRoutes);
+app.use("/data",guruRoutes,siswaRoutes, mapelRoutes,kelasRoutes,jadwalMapelRoutes,absenRoutes);
 
 
 // Inisialisasi middleware session

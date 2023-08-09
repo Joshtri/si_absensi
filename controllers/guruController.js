@@ -1,5 +1,6 @@
 const db = require('../utils/database');
 
+// function untuk read data di tabel.
 exports.guruPage = (req,res)=>{
   const data = {
     title: "Data Guru"
@@ -15,13 +16,16 @@ exports.guruPage = (req,res)=>{
     else if(!err){
       res.render('data_guru',{
         guruData:data,
-        tableGuru:results
+        tableGuru:results,
+
+        // notifikasi condition.
+        notifSuksesTambah : false
       });
     }
   });
 }
 
-
+// function untuk halaman tambah data guru
 exports.guruAddPage = (req,res) =>{
   const data = {
     title: "Tambah Data Guru"
@@ -31,6 +35,8 @@ exports.guruAddPage = (req,res) =>{
     guruData:data
   });
 }
+
+// fungsi query utk tambah data
 exports.guruAdd = (req,res)=>{
 
   const guruFields = {
@@ -44,6 +50,10 @@ exports.guruAdd = (req,res)=>{
     jenis_kelamin : req.body.jenis_kelamin
   };
 
+  const data = {
+    title: "Data Guru"
+  }
+
   const query = 'INSERT INTO guru SET ?';
 
   db.query(query,guruFields, (err,results)=>{
@@ -52,7 +62,15 @@ exports.guruAdd = (req,res)=>{
     }
 
     else if (!err){
-      res.send('SUKSES');
+      // res.send('SUKSES');
+      res.render('data_guru',{
+        tableGuru:results,
+        guruData:data,
+
+        // notifikasi condition.
+        notifSuksesTambah : true
+
+      })
     }
   });
 };

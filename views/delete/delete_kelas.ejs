@@ -25,7 +25,7 @@
     $(document).ready(function () {
       $('#deleteModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
-        var id = button.data('id_');
+        var id = button.data('id');
         var modal = $(this);
         modal.find('#deleteIdInput').val(id);
       });

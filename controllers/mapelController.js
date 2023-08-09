@@ -17,9 +17,10 @@ exports.mapelPage = (req,res) =>{
       res.render('data_mapel',
       {
         mapelData:data,
-        tableMapel:results
+        tableMapel:results,
+        notifSuksesTambah : false
       });
-    }
+    } 
   });
 
 }
@@ -42,6 +43,10 @@ exports.addMapel = (req,res) =>{
     nama_pengajar : req.body.nama_pengajar
   }
 
+  const data = {
+    title:"Data Mapel"
+  }
+
   const query = 'INSERT INTO mata_pelajaran SET ?'
 
   db.query(query,mapelFields, (err,results)=>{
@@ -50,7 +55,11 @@ exports.addMapel = (req,res) =>{
     }
 
     else if (!err){
-      res.send('Input Success')
+      res.render('data_mapel',{
+        mapelData:data,
+        tableMapel:results,
+        notifSuksesTambah : true
+      })
     }
   });
 }
