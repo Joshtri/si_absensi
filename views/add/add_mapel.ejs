@@ -7,6 +7,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
 </head>
 <body>
@@ -15,13 +16,21 @@
   <%- include('layouts/header');%>
   <div class="container mt-5">
     <div class="container mt-5 ">
-      <div class="card">
+
+      <% if(errorDuplikat) { %>
+      <div class="alert alert-warning alert-dismissible fade show w-50 animate__animated animate__bounce" role="alert">
+        <strong>Peringatan!</strong> Data Mapel yang anda input sudah ada.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } %>
+
+      <div class="card border border-danger border-2">
         <div class="card-header bg-black bg-gradient">
           <h5 class="text-white text-center"><%= mapelAddData.title %></h5>
         </div>
         <div class="card-body">
           <form action="/data/post_mapel" method="POST">
-              <div class="row g-3">
+              <div class="row g-3 addedPengajarRow">
                 <div class="col-md-4 mt-xxl-3">
                   <div class="form-floating mb-1">
                     <input type="text" name="nama_mapel" class="form-control" required placeholder="adf">
@@ -37,6 +46,7 @@
                     </select>
                     <label for="">Pilih Pengajar</label>
                   </div>
+                  <button type="button" class="mt-2 btn btn-outline-success btn-light btn-sm text-capitalize tambahPengajarButton">tambah pengajar</button>
                 </div>
 
               </div>
@@ -54,6 +64,84 @@
 
   <!-- external js -->
   <script src="/js/fetchData.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var pengajarCounter = 2;
+
+      // Fungsi untuk menambah kotak pengajar
+      function tambahPengajar() {
+        var newPengajarDiv = document.createElement("div");
+        newPengajarDiv.className = "col-md-4 mt-3 addedPengajar";
+          
+        var formFloatingDiv = document.createElement("div");
+        formFloatingDiv.className = "form-floating";
+          
+        var selectElement = document.createElement("select");
+        selectElement.name = "nama_pengajar_" + pengajarCounter;
+        selectElement.className = "form-select";
+        selectElement.required = true;
+        selectElement.id = "nama_pengajar_" + pengajarCounter; // Add an ID to the select element
+          
+        var labelElement = document.createElement("label");
+        labelElement.htmlFor = "nama_pengajar_" + pengajarCounter;
+        labelElement.textContent = "Pilih Pengajar " + pengajarCounter;
+          
+        var hapusButton = document.createElement("button");
+        hapusButton.type = "button";
+        hapusButton.className = "mt-2 btn btn-outline-danger btn-light btn-sm text-capitalize hapusPengajarButton";
+        
+        // Menambahkan ikon Font Awesome ke tombol hapus
+        var trashIcon = document.createElement("i");
+        trashIcon.className = "fa-solid fa-trash mx-1"; // Menggunakan kelas ikon "fas" untuk Solid icons
+        hapusButton.appendChild(trashIcon);
+        
+        hapusButton.appendChild(document.createTextNode(" Hapus Pengajar"));
+          
+        formFloatingDiv.appendChild(selectElement);
+        formFloatingDiv.appendChild(labelElement);
+        formFloatingDiv.appendChild(hapusButton);
+          
+        newPengajarDiv.appendChild(formFloatingDiv);
+          
+        var addedPengajarRow = document.querySelector(".addedPengajarRow");
+        addedPengajarRow.appendChild(newPengajarDiv);
+          
+        pengajarCounter++;
+          
+        // Fetch data and populate options for the new select element
+        fetch('/data/guru_list')
+          .then(response => response.json())
+          .then(data => {
+            const select = document.getElementById('nama_pengajar_' + (pengajarCounter - 1));
+    
+            data.forEach(guru_list => {
+              const option = document.createElement('option');
+              option.value = guru_list.nama_lengkap;
+              option.text = guru_list.nama_lengkap + ' - ' + guru_list.bidang.toUpperCase();
+              select.appendChild(option);
+            });
+          })
+          .catch(error => console.error('Error fetching guru list', error));
+      }
+
+      // Tombol tambah pengajar
+      var tambahPengajarButton = document.querySelector(".tambahPengajarButton");
+      tambahPengajarButton.addEventListener("click", function() {
+        tambahPengajar();
+      });
+
+      // Tombol hapus pengajar
+      document.addEventListener("click", function(event) {
+        if (event.target && event.target.classList.contains("hapusPengajarButton")) {
+          var pengajarDiv = event.target.closest(".addedPengajar");
+          pengajarDiv.remove();
+          pengajarCounter = document.querySelectorAll(".addedPengajar").length + 2;
+        }
+      });
+    });
+  </script>
+  
   
 
 </body>

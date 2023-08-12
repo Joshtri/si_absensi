@@ -14,7 +14,7 @@ fetch('/data/guru_list').then(response => response.json()).then(data=>{
     const option = document.createElement('option');
 
     option.value = guru_list.nama_lengkap;
-    option.text = guru_list.nama_lengkap;
+    option.text = guru_list.nama_lengkap +' - ' + guru_list.bidang.toUpperCase();
 
     select.appendChild(option);
   });

@@ -32,7 +32,8 @@ exports.guruAddPage = (req,res) =>{
   };
 
   res.render('add_guru',{
-    guruData:data
+    guruData:data,
+    errorDuplikat : false
   });
 }
 
@@ -42,6 +43,7 @@ exports.guruAdd = (req,res)=>{
   const guruFields = {
     nama_lengkap : req.body.nama_lengkap, 
     nip : req.body.nip,
+    bidang: req.body.bidang,
     email : req.body.email,
     password : req.body.password,
     role : req.body.role,
@@ -54,23 +56,41 @@ exports.guruAdd = (req,res)=>{
     title: "Data Guru"
   }
 
-  const query = 'INSERT INTO guru SET ?';
+  const queryInsert = 'INSERT INTO guru SET ?';
+  const queryCheck = "SELECT * FROM guru WHERE nama_lengkap = ?"
 
-  db.query(query,guruFields, (err,results)=>{
+  db.query(queryCheck,[guruFields.nama_lengkap], (err,results)=>{
     if(err){
       throw err;
     }
 
-    else if (!err){
-      // res.send('SUKSES');
-      res.render('data_guru',{
-        tableGuru:results,
+    //cek apa sudah ADA DI DATABASE. dan sekaligus memberi peringatan ke FE
+    else if(results.length > 0){
+      res.render('add_guru',{
         guruData:data,
-
-        // notifikasi condition.
-        notifSuksesTambah : true
-
+        errorDuplikat : true
       })
+    }
+
+    else if(!err & !results.length > 0 ){
+      db.query(queryInsert, guruFields, (err,results)=>{
+        if(err){
+          throw err;
+        }
+
+        else if (!err){
+          // res.send('SUKSES');
+          res.render('data_guru',{
+            tableGuru:results,
+            guruData:data,
+    
+            // notifikasi condition.
+            notifSuksesTambah : true
+
+    
+          })
+        }
+      });
     }
   });
 };

@@ -39,12 +39,13 @@ app.set("views",[
   path.join(__dirname, "/views"),
   path.join(__dirname, "/views/layouts"),
   path.join(__dirname, "/views/data/"),
-  path.join(__dirname, "/views/add/")
+  path.join(__dirname, "/views/add/"),
+  path.join(__dirname, "/views/data/absen/")
 ])
 app.use(express.static(__dirname + '/public'));
 
 
-app.listen(3001, (err)=>{
+app.listen(3002, (err)=>{
   if(err){
     throw err;
   }

@@ -31,35 +31,66 @@ exports.addMapelPage = (req,res)=>{
   }
 
   res.render('add_mapel',{
+    errorDuplikat : false,
     mapelAddData :data
   })
 }
 
+
+// Backend untuk data mapel.
 exports.addMapel = (req,res) =>{
 
   const mapelFields = {
 
     nama_mapel:req.body.nama_mapel,
-    nama_pengajar : req.body.nama_pengajar
+    // nama pengajar ada 3
+    nama_pengajar : req.body.nama_pengajar,
+    nama_pengajar_2 : req.body.nama_pengajar_2
   }
 
   const data = {
     title:"Data Mapel"
   }
 
-  const query = 'INSERT INTO mata_pelajaran SET ?'
+  const queryInsert = 'INSERT INTO mata_pelajaran SET ?'
+  const queryCheck = 'SELECT * FROM mata_pelajaran WHERE nama_mapel = ?'
 
-  db.query(query,mapelFields, (err,results)=>{
+  db.query(queryCheck,[mapelFields.nama_mapel], (err,results)=>{
     if(err){
-      throw err;
+      console.error('Error checking data:', err);
+      res.status(500).send({ message: 'Internal Server Error' });
+      return;
+      
+    }
+    else if(results.length > 0){
+      res.render('add_mapel',{
+        mapelAddData:data,
+        tableMapel:results,
+        notifSuksesTambah : true,
+        errorDuplikat : true
+      })
     }
 
-    else if (!err){
-      res.render('data_mapel',{
-        mapelData:data,
-        tableMapel:results,
-        notifSuksesTambah : true
-      })
+    else if (!err && !results.length > 0){
+
+      db.query(queryInsert,mapelFields,(err,results)=>{
+
+        if (err) {
+          console.error('Error inserting data:', insertError);
+          res.status(500).send({ message: 'Internal Server Error' });
+          return;
+        }
+
+        else if(!err){
+          res.render('data_mapel',{
+            mapelAddData:data,
+            mapelData :data,
+            tableMapel:results,
+            notifSuksesTambah : true
+            
+          })
+        }
+      });
     }
   });
 }

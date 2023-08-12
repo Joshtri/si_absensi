@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title><%= seninData.title %></title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -14,24 +14,18 @@
   <div class="container mt-5">
     <div class="d-flex justify-content-center">
       <div class="list-group col-3 ms-2">
-        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-        Senin
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">Selasa</a>
+        <a href="/data/data_senin" class="list-group-item list-group-item-action active" aria-current="true">Senin</a>
+        <a href="/data/data_selasa" class="list-group-item list-group-item-action">Selasa</a>
       </div>
 
       <div class="list-group col-3 mx-1">
-        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-          Rabu
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">Kamis</a>
+        <a href="/data/data_rabu" class="list-group-item list-group-item-action" aria-current="true">Rabu</a>
+        <a href="/data/data_kamis" class="list-group-item list-group-item-action">Kamis</a>
       </div>
 
       <div class="list-group col-3 mx-1">
-        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-          Jumat
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">Sabtu</a>
+        <a href="/data/data_jumat" class="list-group-item list-group-item-action" aria-current="true">Jumat</a>
+        <a href="/data/data_sabtu" class="list-group-item list-group-item-action">Sabtu</a>
       </div>
     </div>
 
@@ -39,10 +33,33 @@
     <div class="container mt-3">
         <div class="card">
           <div class="card-header">
-            <h5 class="card-title">Absensi</h5>
+            <h4 class="card-title">Absensi</h4>
           </div>
 
           <div class="card-body">
+            <h5 class="text-decoration-underline text-center mb-4">Senin</h5>
+
+            <table class="table w-50 table-hover mx-auto table-light table-bordered">
+              <thead class="bg-dark">
+                <tr class="text-center">
+                  <th>Kelas</th>
+                  <th>Nama Mapel</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i = 0 ; i < seninKelas.length; i++) { %>
+                <tr class="text-center">
+                  <td class="text-uppercase"><%= seninKelas[i].nama_kelas %></td>
+                  <td><%= seninKelas[i].nama_mapel %></td>
+                  <td>
+                    <a href=""><i class="fa-solid fa-arrow-up-right-from-square" style="color: #7a9ad1;"></i></a>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+
 
           </div>
         </div>

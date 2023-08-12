@@ -5,7 +5,7 @@ exports.kelasPage = (req,res)=>{
     title:"Data Kelas"
   }
 
-  const query = 'SELECT * FROM kelas'
+  const query = 'SELECT * FROM kelas ORDER BY nama_kelas ASC'
   // const query = 'SELECT *, UPPER(nama_kelas) AS nama_kelas_upper FROM kelas';
   db.query(query, (err,results)=>{
 
@@ -29,7 +29,8 @@ exports.addKelasPage = (req,res)=>{
   }
 
   res.render('add_kelas',{
-    addKelasData:data
+    addKelasData:data,
+    errorDuplikat : false
   });
 }
 
@@ -45,20 +46,43 @@ exports.addKelas = (req,res)=>{
     title:"Data Kelas"
   }
 
-  const query = 'INSERT INTO kelas SET ?';
+  const queryInsert = 'INSERT INTO kelas SET ?';
+  const queryCheck = 'SELECT * FROM kelas WHERE nama_kelas = ? '
 
-  db.query(query,kelasFields,(err,results)=>{
+  db.query(queryCheck,[kelasFields.nama_kelas],(err,results)=>{
     if(err){
-      throw err;
+      console.error('error checking data ' + err)
+      res.status(500).send({message:"error"})
+      return;
+    }
+    else if(results.length > 0){
+      // res.status(500).send('Data sudah ada di database')
+      res.render('add_kelas',{
+        addKelasData:data,
+        errorDuplikat : true
+      })
     }
 
-    else if (!err){
-      res.render('data_kelas',{
-        kelasData:data,
-        tableKelas: results,
-        notifSuksesTambah : true
+    else if(!err & !results.length > 0){
+
+      db.query(queryInsert,kelasFields,(err, results)=>{
+        if(err){
+          throw err;
+        }
+
+        else if (!err){
+          res.render('data_kelas',{
+            kelasData:data,
+            tableKelas: results,
+            notifSuksesTambah : true
+          });
+        }
       });
+
+      
     }
+
+
 
   })
 }

@@ -32,6 +32,7 @@ exports.addSiswaPage = (req,res)=>{
   }
 
   res.render('add_siswa', {
+    errorDuplikat : false,
     siswaData : data
   });
 
@@ -54,18 +55,35 @@ exports.addSiswa = (req,res)=>{
     title: "Data Siswa"
   };
 
-  const query = 'INSERT INTO siswa SET ?'
+  const queryInsert = 'INSERT INTO siswa SET ?'
+  const queryCheckNama = "SELECT * FROM siswa WHERE nama_siswa = ?"
 
-  db.query(query, siswaFields,(err,results)=>{
+  db.query(queryCheckNama, [siswaFields.nama_siswa],(err,results)=>{
     if(err){
       throw err;
     }
 
-    else if (!err){
-      res.render('data_siswa',{
-        siswaData: data,
-        tableSiswa : results,
-        notifSuksesTambah : true
+    else if(results.length > 0){
+      // res.status(500).send("data nama siswa sudah ada di database.");
+      res.render('add_siswa',{
+
+        errorDuplikat : true,
+        siswaData : data
+      })
+    }
+    
+    else if (!err & !results.length > 0){
+      db.query(queryInsert,siswaFields,(err,results)=>{
+        if(err){
+          throw err;
+        }
+        else if (!err){
+          res.render('data_siswa',{
+            siswaData: data,
+            tableSiswa : results,
+            notifSuksesTambah : true
+          });
+        }
       });
     }
   });
