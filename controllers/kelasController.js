@@ -1,3 +1,4 @@
+const ejs = require('ejs');
 const db = require('../utils/database');
 
 exports.kelasPage = (req,res)=>{
@@ -105,3 +106,104 @@ exports.deleteKelas = (req,res)=>{
     }
   });
 }
+
+//UPDATE KELAS
+// exports.updateKelas = (req,res) =>{
+
+//   const id = req.body.id;
+//   const { nama_kelas, nama_wali_kelas } = req.body;
+
+//   const queryUpdate = 'UPDATE kelas SET nama_kelas = ?, nama_wali_kelas = ? WHERE id_kelas = ?';
+//   db.query(queryUpdate, [nama_kelas, nama_wali_kelas, id], (err, results) => {
+//     if (err) {
+//       console.error('Error updating data in MySQL:', err);
+//       res.status(500).json({ message: 'Error updating data' });
+//       return;
+//     }
+
+//     // Ambil data kelas yang baru saja di-update
+//     const updatedData = {
+//       nama_kelas: nama_kelas,
+//       nama_wali_kelas: nama_wali_kelas
+//     };
+
+//     // Render modal dengan data yang baru saja di-update
+//     ejs.renderFile('update_kelas.ejs', { updateData: updatedData }, (err, renderedHtml) => {
+//       if (err) {
+//         console.error('Error rendering modal template:', err);
+//         res.status(500).json({ message: 'Error rendering modal template' });
+//         return;
+//       }
+
+//       // Kirim HTML modal yang telah dirender sebagai respons
+//       res.status(200).send(renderedHtml);
+//     });
+//   });
+// }
+
+
+// exports.updateKelas = (req,res)=>{
+
+//   const id_kelas = req.body.id_Kelas;
+//   const query = 'SELECT * FROM kelas WHERE id_kelas = ?'
+
+//   db.query(query,[id_kelas], (err,resultFind)=>{
+//     if(err){
+//       throw err;
+//     }
+    
+//     else if(!err){
+//       res.send('Hadeh' + resultFind);
+//     }
+//   });
+// };
+
+
+//API UPDATE KELAS
+exports.updateKelas = (req, res) => {
+  const id_kelas = req.params.id_kelas;
+  const { nama_kelas, nama_wali_kelas } = req.body;
+
+  const queryUpdate = 'UPDATE kelas SET nama_kelas = ?, nama_wali_kelas = ? WHERE id_kelas = ?';
+  db.query(queryUpdate, [nama_kelas, nama_wali_kelas, id_kelas], (err, results) => {
+    if (err) {
+      console.error('Error updating data in MySQL:', err);
+      res.status(500).json({ message: 'Error updating data' });
+      return;
+    }
+    res.status(200).json({ message: 'Data updated successfully' });
+  });
+};
+
+
+// exports.showUpdateModal = (req, res) => {
+//   // Ambil data yang diperlukan untuk modal
+
+//   const query =
+//   const updateData = {
+//     id_kelas: ...,
+//     nama_kelas: ...,
+//     nama_wali_kelas: ...
+//   };
+  
+//   res.render('update_kelas.ejs', { updateData });
+// };
+
+
+// exports.updateKelas = (req,res) =>{
+
+//   const id = req.params.id;
+//   const { nama_kelas, nama_wali_kelas } = req.body;
+
+//   const queryUpdate = 'UPDATE kelas SET nama_kelas = ?, nama_wali_kelas = ? WHERE id_kelas = ?';
+//   db.query(queryUpdate, [nama_kelas, nama_wali_kelas, id], (err, results) => {
+//     if (err) {
+//       console.error('Error updating data in MySQL:', err);
+//       res.status(500).json({ message: 'Error updating data' });
+//       return;
+//     }
+//     res.status(200).json({ message: 'Data updated successfully' });
+//   });
+// }
+
+

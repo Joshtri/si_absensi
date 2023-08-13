@@ -1,0 +1,107 @@
+<!-- Modal Update Kelas -->
+<div class="modal fade" id="modalUpdateKelas" tabindex="-1" aria-labelledby="modalUpdateKelasLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Kelas</h5>
+        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="updateForm" method="POST"> <!-- Ganti action dan method sesuai dengan rute dan metodenya -->
+        <div class="modal-body">
+          <div class="col-md-8 mb-1">
+            <div class="form-floating">
+              <input type="text" class="form-control" name="nama_kelas" id="nama_kelas" placeholder="testing" >
+              <label id="modalUpdateKelasLabel" for="modalUpdateKelasLabel">Nama Kelas</label>
+            </div>
+          </div>
+          <!-- <div class="col-md-8 mb-1">
+            <div class="form-floating">
+              <input type="text" class="form-control" name="nama_wali_kelas" id="nama_wali_kelas" placeholder="testing" >
+              <label id="modalUpdateKelasLabel" for="modalUpdateKelasLabel">Wali Kelas</label>
+            </div>
+          </div> -->
+
+          <div class="col-md-8 mt-3">
+            <div class="form-floating">
+              <select name="nama_wali_kelas" id="nama_wali_kelas" class="form-select" required>
+                <option value="" selected>-</option>
+              </select>
+              <label for="floatingInput">Wali Kelas</label>
+            </div>
+          </div>
+
+
+          
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Update</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  // Menambahkan event listener untuk tombol update
+  document.addEventListener("DOMContentLoaded", () => {
+    const updateButtons = document.querySelectorAll(".update-button");
+
+    updateButtons.forEach(button => {
+      button.addEventListener("click", async (event) => {
+        const id_kelas = button.getAttribute("data-id_kelas");
+        const nama_kelas = button.getAttribute("data-nama");
+        const nama_wali_kelas = button.getAttribute("data-wali");
+
+        // Mengisi data ke modal update
+        document.getElementById("nama_kelas").value = nama_kelas;
+        // document.getElementById("nama_wali_kelas").va = nama_wali_kelas;
+
+        // Mengubah action form modal update
+        const updateForm = document.getElementById("updateForm");
+        updateForm.action = `/data/update_kelas/${id_kelas}`;
+
+        try {
+          // Memuat daftar wali kelas dari sumber yang sesuai (misalnya, AJAX request ke backend)
+          const daftarWaliKelas = await loadDaftarWaliKelas();
+
+          // Mengosongkan opsi-opsi sebelumnya dalam elemen <select>
+          const selectElement = document.getElementById("nama_wali_kelas");
+          selectElement.innerHTML = "";
+
+          // Menambahkan opsi-opsi wali kelas ke dalam elemen <select>
+          daftarWaliKelas.forEach(waliKelas => {
+            const option = document.createElement("option");
+            option.value = waliKelas.nama_lengkap; // Ganti dengan nilai yang sesuai
+            option.text = waliKelas.nama_lengkap; // Ganti dengan nama yang sesuai
+            selectElement.appendChild(option);
+          });
+
+          // Memilih opsi wali kelas yang sesuai
+          for (let i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].text === nama_wali_kelas) {
+              selectElement.options[i].selected = true;
+              break; // Tambahkan break untuk menghentikan loop setelah opsi terpilih ditemukan
+            }
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      });
+    });
+  });
+
+  // Fungsi untuk memuat daftar wali kelas dari backend (contoh)
+  async function loadDaftarWaliKelas() {
+    try {
+      const response = await fetch("/data/guru_list"); // Ganti dengan endpoint yang sesuai
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error loading wali kelas:", error);
+      return [];
+    }
+  }
+</script>

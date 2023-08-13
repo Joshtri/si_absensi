@@ -114,3 +114,14 @@ exports.deleteGuru = (req,res)=>{
     }
   });
 }
+
+
+//API UPDATE
+
+
+// exports.updateGuru = (req,res)=>{
+
+//   const id_guru = req.params.id_guru;
+
+
+// }

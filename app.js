@@ -40,6 +40,7 @@ app.set("views",[
   path.join(__dirname, "/views/layouts"),
   path.join(__dirname, "/views/data/"),
   path.join(__dirname, "/views/add/"),
+  path.join(__dirname, "/views/update"),
   path.join(__dirname, "/views/data/absen/")
 ])
 app.use(express.static(__dirname + '/public'));

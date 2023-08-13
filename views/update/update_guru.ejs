@@ -83,3 +83,32 @@
     </div>
   </div>
 </div>
+
+
+
+<script>
+
+  //menambah event listener utk button update.
+
+  document.addEventListener("DOMContentLoaded"),()=>{
+    const updateButtons = document.querySelectorAll(".update-button");
+    
+    updateButtons.forEach(button =>{
+      button.addEventListener("click", async,(event)=>{
+        const id_guru = button.getAttribute('id')
+        const nama_guru = button.getAttribute('nama_guru')
+        const nip = button.getAttribute('nip')
+        const bidang_guru = button.getAttribute('bidang')
+        const email = button.getAttribute('email')
+        const role = button.getAttribute('role')
+        const noHP = button.getAttribute('no_hp')
+        const alamat = button.getAttribute('alamat')
+        const jenisKelamin = button.getAttribute('jenis_kelamin')
+
+        // Mengisi data ke modal update
+        document.getElementById("").value = nama_guru;
+      });
+    });
+  }
+
+</script>

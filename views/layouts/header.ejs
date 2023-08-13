@@ -19,7 +19,7 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Data
+            <i class="fa-solid fa-database mx-1" style="color: #dbdbdc;"></i>Data
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/data/data_guru">Data Guru</a></li>
@@ -31,9 +31,24 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link text-white" href="/data/data_absen"><i class="fa-solid fa-address-book mx-1"></i>Absensi</a>
+          <a class="nav-link text-white" href="/data/data_absen"><i class="fa-solid fa-address-book mx-1" style="color: #dbdbdc ;" ></i>Absensi</a>
         </li>
       </ul>
+    </div>
+
+    <div class="d-flex me-5 pe-3">
+      <li class="nav-item dropdown list-unstyled">
+        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="/img/person.png" height="30" width="30" alt="">
+          Profile
+        </a>  
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/my_profile">My Profile</a></li>
+          <li><a class="dropdown-item" href="#">Mail Message</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-confirm">Log Out</a></li>
+        </ul>
+      </li>
     </div>
   </div>
 </nav>

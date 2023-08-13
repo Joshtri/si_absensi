@@ -28,7 +28,7 @@
                 
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Export</a></li>
-                <li><a class="dropdown-item" href="#">Import</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalImport">Import</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
             </div>
@@ -44,6 +44,32 @@
               </div>
             </div>
 
+          </div>
+        </div>
+
+                <!-- MODAL IMPORT -->
+        <div class="modal fade" id="modalImport">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white">Import Data</h5>
+              </div>
+
+              <div class="modal-body">
+
+                <div class="input-group mb-3">
+                  <div class="col-md-9">
+                    <label for="" class="form-label">Import Data Excel</label>
+                    <input type="file" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Upload File</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -63,12 +89,12 @@
                 <td><%= tableMapel[i].nama_mapel %></td>
                 <td><%= tableMapel[i].nama_pengajar %></td>
                 <td>
-                  <a href="#" class="text-decoration-none mx-2">
-                    <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#modalUpdateMapel">
+                    <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Update"></i>
                   </a>
     
-                  <a href="#" class="text-decoration-none mx-2" title="Delete" data-bs-target="#deleteModal" data-bs-toggle="modal" data-id="<%= tableMapel[i].id_mapel %>">
-                    <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  <a href="#" class="text-decoration-none mx-2" data-bs-target="#deleteModal" data-bs-toggle="modal" data-id="<%= tableMapel[i].id_mapel %>">
+                    <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Delete"></i>
                   </a>
     
                   <a class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#detailModalMapel"
@@ -76,7 +102,7 @@
                   data-nama_mapel="<%= tableMapel[i].nama_mapel %>",
                   data-nama_pengajar="<%= tableMapel[i].nama_pengajar %>"
                   >
-                    <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                    <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Detail"></i>
                   </a>
     
                 </td>
@@ -120,8 +146,9 @@
   </script>
 
   <script src="/js/liveSearch.js"></script>
+  <script src="/js/enableTooltip.js"></script>
   <%- include('detail/detail_mapel'); %>
   <%- include('delete/delete_mapel'); %>
-
+  <%- include('update/update_mapel'); %>
 </body>
 </html>

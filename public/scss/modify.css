@@ -1,0 +1,6 @@
+.modal.fade.show {
+  transform: translate(0, 0) !important;
+  opacity: 1 !important;
+  transition: transform 60s, opacity 0.3s;
+  transform: translate(0, 0) scale(1) !important;
+}/*# sourceMappingURL=modify.css.map */

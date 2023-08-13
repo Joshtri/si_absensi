@@ -14,4 +14,6 @@ router.post('/post_kelas', kelasController.addKelas);
 
 router.post('/delete_kelas', kelasController.deleteKelas);
 
+router.post('/update_kelas/:id_kelas', kelasController.updateKelas);
+
 module.exports = router;

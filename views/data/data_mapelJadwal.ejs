@@ -26,7 +26,7 @@
               <a href="" class="mx-2 btn btn-outline-light mb-3 link-opacity-50-hover link-offset-2" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-gear" style="color: #94b1f5;"></i></a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Export</a></li>
-                <li><a class="dropdown-item" href="#">Import</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalImport">Import</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
             </div>
@@ -39,6 +39,33 @@
                 <datalist id="datalistOptions">
                   <option value="-">-</option>
                 </datalist>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+                <!-- MODAL IMPORT -->
+        <div class="modal fade" id="modalImport">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Import Data</h5>
+              </div>
+
+              <div class="modal-body">
+
+                <div class="input-group mb-3">
+                  <div class="col-md-9">
+                    <label for="" class="form-label">Import Data Excel</label>
+                    <input type="file" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Upload File</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
               </div>
             </div>
           </div>
@@ -61,12 +88,13 @@
                 <td class="text-uppercase"><%= tableJadwalMapel[i].nama_kelas %></td>
                 <td class="text-capitalize"><%= tableJadwalMapel[i].hari %></td>
                 <td>
-                  <a href="#" class="text-decoration-none mx-2">
-                    <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#modalUpdateJadwalMapel">
+                    <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Update"></i>
                   </a>
 
-                  <a href="#" class="text-decoration-none mx-2" title="Delete" data-bs-target="#deleteModal" data-bs-toggle="modal" data-id="<%= tableJadwalMapel[i].id_jadwal_mapel %>">
-                    <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  <a href="#" class="text-decoration-none mx-2" data-bs-target="#deleteModal" data-bs-toggle="modal" data-id="<%= tableJadwalMapel[i].id_jadwal_mapel %>">
+                    <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover"
+                    data-bs-toggle="tooltip" title="Delete"></i>
                   </a>
 
                   <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#detailModalJadwalMapel"
@@ -76,7 +104,7 @@
                     data-jam_selesai="<%= tableJadwalMapel[i].jam_selesai %>",
                     data-hari="<%= tableJadwalMapel[i].hari %>"
                   >
-                    <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                    <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Detail"></i>
                   </a>
 
                 </td>
@@ -123,7 +151,9 @@
   </script>
 
   <script src="/js/liveSearch.js"></script>
+  <script src="/js/enableTooltip.js"></script>
   <%- include('detail/detail_mapelJadwal');%>
   <%- include('delete/delete_jadwalMapel');%>
+  <%- include('update/update_jadwalMapel'); %>
 </body>
 </html>

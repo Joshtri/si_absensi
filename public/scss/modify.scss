@@ -1,0 +1,8 @@
+$modal-fade-transform: scale(0.8);
+
+.modal.fade.show {
+  transform: translate(0, 0) !important;
+  opacity: 1 !important;
+  transition: transform 0.3s, opacity 0.3s;
+  transform: translate(0, 0) scale(1) !important;
+}

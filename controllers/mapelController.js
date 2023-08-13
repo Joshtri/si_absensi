@@ -130,3 +130,24 @@ exports.deleteMapel = (req,res)=>{
 };
 
 
+exports.updateMapel = (req,res) =>{
+
+  //fields mapel
+  const id_mapel = req.params.id_mapel;
+  const {nama_mapel,nama_pengajar,nama_pengajar_2} = req.body;
+
+  const queryUpdate = "UPDATE mapel SET ? nama_mapel = ?, nama_pengajar = ?, nama_pengajar_2 = ? WHERE id_mapel = ?";
+
+  db.query(queryUpdate, [nama_mapel,nama_pengajar,nama_pengajar_2,id_mapel], (err,results)=>{
+    if(err){
+      console.log(err);
+      res.status(500).send("errro saat update" +err);
+    }
+
+    else if(!err){
+      res.status(200).json({ message: 'Data updated successfully' });
+    }
+  })
+}
+
+

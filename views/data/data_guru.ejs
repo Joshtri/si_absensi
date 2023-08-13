@@ -17,7 +17,7 @@
 
   
 
-  <div class="container mt-5">
+  <div class="container mt-1">
     <div class="">
       <h3 class="text-center animate__animated animate__bounce"><%= guruData.title %></h3>
       <div class="container-sm mt-2">
@@ -30,7 +30,7 @@
     
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Export</a></li>
-                <li><a class="dropdown-item" href="#">Import</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalImport">Import</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
     
@@ -51,7 +51,34 @@
         </div>
 
 
-        <table class="table table-responsive table-hover rounded table-bordered shadow mb-5 animate__animated animate__lightSpeedInLeft" id="dataTable">
+        <!-- MODAL IMPORT -->
+        <div class="modal fade" id="modalImport">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Import Data</h5>
+              </div>
+
+              <div class="modal-body">
+
+                <div class="input-group mb-3">
+                  <div class="col-md-9">
+                    <label for="" class="form-label">Import Data Excel</label>
+                    <input type="file" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Upload File</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <table class="table table-hover rounded table-bordered shadow mb-5 animate__animated animate__lightSpeedInLeft" id="dataTable">
           <thead class="table-dark text-center">
             <th>No.</th>
             <th>Nama Guru</th>
@@ -63,21 +90,31 @@
           <tbody class="text-center">
             <% for(let i = 0; i < tableGuru.length; i++) { %>
               <tr>
-                <td><%= i + 1 %></td>
-                <td><%= tableGuru[i].nama_lengkap %></td>
-                <td class="text-capitalize"><%= tableGuru[i].bidang %></td>
-                <td><%= tableGuru[i].nip %></td>
-                <td><%= tableGuru[i].email %></td>
+                <td class="col-md-1"><%= i + 1 %></td>
+                <td class="col-md-3"><%= tableGuru[i].nama_lengkap %></td>
+                <td class="col-md-2 text-capitalize"><%= tableGuru[i].bidang %></td>
+                <td class="col-md-1"><%= tableGuru[i].nip %></td>
+                <td class="col-md-2"><%= tableGuru[i].email %></td>
                 <td>
-                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#modalUpdateGuru">
-                    <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#modalUpdateGuru"
+                  data-id="<%= tableGuru[i].id_guru %>",
+                  data-nama_guru="<%= tableGuru[i].nama_lengkap%>",
+                  data-nip="<%= tableGuru[i].nip %>",
+                  data-email="<%= tableGuru[i].email %>",
+                  data-bidang="<% tableGuru[i].bidang %>"
+                  data-role="<%= tableGuru[i].role %>",
+                  data-no_hp="<%= tableGuru[i].no_hp %>",
+                  data-alamat="<%= tableGuru[i].alamat %>",
+                  data-jenis_kelamin="<%= tableGuru[i].jenis_kelamin%>"
+                  >
+                    <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Update"></i>
                   </a>
 
                   <a href="#" class="text-decoration-none mx-2" title="Delete" data-bs-target="#deleteModal" data-bs-toggle="modal" data-id="<%= tableGuru[i].id_guru %>">
-                    <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                    <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Delete"></i>
                   </a>
 
-                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#detailModalGuru"
+                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" title="Detail" data-bs-target="#detailModalGuru"
                   
                   data-nama_guru="<%= tableGuru[i].nama_lengkap%>",
                   data-nip="<%= tableGuru[i].nip%>",
@@ -87,7 +124,7 @@
                   data-alamat="<%= tableGuru[i].alamat%>",
                   data-jenis_kelamin="<%= tableGuru[i].jenis_kelamin%>"
                   >
-                    <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover"></i>
+                    <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Detail" ></i>
                   </a>
                 </td>
               </tr>
@@ -132,6 +169,10 @@
         $('#successTambahModal').modal('show')
     });
   </script>
+
+  
+
+  <script src="/js/enableTooltip.js"></script>
 
   
   <script src="/js/liveSearch.js"></script>
