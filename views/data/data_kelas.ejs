@@ -15,6 +15,30 @@
   <!-- Tambahkan referensi jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+  <% if (notifSuksesUpdate) { %>
+    <div class="toast ms-auto fade show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="fa-solid fa-square" style="color: #6892d9;"></i>
+        <strong class="me-auto">Notifikasi</strong>
+        <small><span id="countdown"></span> second ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Berhasil update data
+      </div>
+    </div>
+    <script>
+      // Display the toast when the page loads
+      var toast = new bootstrap.Toast(document.querySelector('.toast'));
+      toast.show();
+  
+      // Redirect to /data/data_guru after a brief delay
+      setTimeout(function() {
+        window.location.href = '/data/data_kelas';
+      }, 6000); // Change the delay as needed (in milliseconds)
+    </script>
+  <% } %>
+
   <div class="container mt-5">
     <div class="">
       <h3 class="text-center animate__animated animate__bounce"><%= kelasData.title %></h3>
@@ -144,10 +168,14 @@
     });
   </script>
 
-  
+  <script>
+    var toast = new bootstrap.Toast(document.querySelector('.toast'));
+    toast.show();
+  </script>
 
   <script src="/js/liveSearch.js"></script>
   <script src="/js/enableTooltip.js"></script>
+  <script src="/js/countDown.js"></script>
   <%- include('delete/delete_kelas.ejs'); %>
   <%- include('update/update_kelas.ejs'); %>
 

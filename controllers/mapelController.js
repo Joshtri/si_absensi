@@ -18,7 +18,8 @@ exports.mapelPage = (req,res) =>{
       {
         mapelData:data,
         tableMapel:results,
-        notifSuksesTambah : false
+        notifSuksesTambah : false,
+        notifSuksesUpdate: false
       });
     } 
   });
@@ -123,6 +124,8 @@ exports.deleteMapel = (req,res)=>{
     }
     else{
       res.status(200).json({ message: 'Admin deleted successfully' })
+
+ 
     }
   });
 
@@ -134,18 +137,37 @@ exports.updateMapel = (req,res) =>{
 
   //fields mapel
   const id_mapel = req.params.id_mapel;
-  const {nama_mapel,nama_pengajar,nama_pengajar_2} = req.body;
+  const {nama_mapel,nama_pengajar} = req.body;
 
-  const queryUpdate = "UPDATE mapel SET ? nama_mapel = ?, nama_pengajar = ?, nama_pengajar_2 = ? WHERE id_mapel = ?";
+  const queryUpdate = "UPDATE mata_pelajaran SET nama_mapel = ?, nama_pengajar = ?  WHERE id_mapel = ?";
 
-  db.query(queryUpdate, [nama_mapel,nama_pengajar,nama_pengajar_2,id_mapel], (err,results)=>{
+  const queryRead = "SELECT * FROM mata_pelajaran";
+  const data = {
+    title:"Data Mapel"
+  }
+
+
+  db.query(queryRead, (err,resultsRead)=>{
     if(err){
-      console.log(err);
-      res.status(500).send("errro saat update" +err);
+      console.error(err);
     }
-
-    else if(!err){
-      res.status(200).json({ message: 'Data updated successfully' });
+    else{
+      db.query(queryUpdate, [nama_mapel,nama_pengajar,id_mapel], (err,results)=>{
+        if(err){
+          console.log(err);
+          res.status(500).send("errror saat update" +err);
+        }
+    
+        else if(!err){
+          res.render('data_mapel',{
+            mapelData:data,
+            tableMapel:resultsRead,
+            /* notifikasi */
+            notifSuksesTambah : false,
+            notifSuksesUpdate : true
+          })
+        }
+      })
     }
   })
 }

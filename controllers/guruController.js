@@ -19,7 +19,8 @@ exports.guruPage = (req,res)=>{
         tableGuru:results,
 
         // notifikasi condition.
-        notifSuksesTambah : false
+        notifSuksesTambah : false,
+        notifSuksesUpdate : false
       });
     }
   });
@@ -117,11 +118,34 @@ exports.deleteGuru = (req,res)=>{
 
 
 //API UPDATE
+exports.updateGuru = (req,res)=>{
 
+  const data = {
+    title: "Data Guru"
+  }
+  const id_guru = req.params.id_guru;
+  const {nama_guru,nip_guru,role_guru,no_hp, alamat, jenis_kelamin,email_guru, bidang} = req.body;
 
-// exports.updateGuru = (req,res)=>{
+  const queryRead = "SELECT * FROM guru";
 
-//   const id_guru = req.params.id_guru;
-
-
-// }
+  const queryUpdate = `UPDATE guru SET nama_lengkap = ?, nip = ?, bidang  = ?, email = ?, role =?, no_hp=?, alamat =?, jenis_kelamin = ? WHERE id_guru = ?`
+  const values = [nama_guru, nip_guru, bidang, email_guru, role_guru, no_hp, alamat, jenis_kelamin, id_guru];
+  db.query(queryRead, (errRead, resultsRead) => {
+    if (errRead) {
+      res.status(500).json({ message: 'Error reading guru data', error: errRead });
+    } else {
+      db.query(queryUpdate, values, (errUpdate, resultsUpdate) => {
+        if (errUpdate) {
+          res.status(500).json({ message: 'Error updating guru', error: errUpdate });
+        } else {
+          res.render('data_guru', {
+            notifSuksesUpdate: true,
+            notifSuksesTambah: false,
+            guruData: data,
+            tableGuru: resultsRead,
+          });
+        }
+      });
+    }
+  });
+}

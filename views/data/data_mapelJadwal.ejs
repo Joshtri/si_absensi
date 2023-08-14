@@ -88,7 +88,13 @@
                 <td class="text-uppercase"><%= tableJadwalMapel[i].nama_kelas %></td>
                 <td class="text-capitalize"><%= tableJadwalMapel[i].hari %></td>
                 <td>
-                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#modalUpdateJadwalMapel">
+                  <a href="#" class="text-decoration-none mx-2 update-button" data-bs-toggle="modal" data-bs-target="#modalUpdateJadwalMapel"
+                  data-nama_mapel="<%= tableJadwalMapel[i].nama_mapel %>",
+                  data-nama_kelas="<%= tableJadwalMapel[i].nama_kelas %>",
+                  data-jam_mulai="<%= tableJadwalMapel[i].jam_mulai %>",
+                  data-jam_selesai="<%= tableJadwalMapel[i].jam_selesai %>",
+                  data-hari="<%= tableJadwalMapel[i].hari %>"
+                  >
                     <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Update"></i>
                   </a>
 

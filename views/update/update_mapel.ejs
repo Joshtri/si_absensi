@@ -1,16 +1,18 @@
 <div class="modal fade" id="modalUpdateMapel" tabindex="-1" aria-labelledby="modalUpdateMapelLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Update Mapel</h5>
-        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title text-white">Update Mapel</h5>
+        <button type="button" class="btn btn-close text-white" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body">
+        <form id="updateForm" method="POST">
 
+          
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="text" class="form-control" name="" id="" placeholder="testing">
+              <input type="text" class="form-control" name="nama_mapel" id="nama_mapel" placeholder="testing">
               <label id="modalUpdateMapelLabel" for="modalUpdateMapelLabel">Nama Mata Pelajaran</label>
             </div>
           </div>
@@ -18,18 +20,93 @@
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <select name="" id="" class="form-select">
+              <select name="nama_pengajar" id="nama_guru_list" class="form-select">
                 <option value="" selected class="text-capitalize">-</option>
               </select>
-              <label for="">Pilih Pengajar</label>
+              <label for="">Pilih Pengajar 1</label>
+            </div>
+          </div>
+
+          <div class="col-md-8 mb-1">
+            <div class="form-floating">
+              <select name="nama_pengajar_2" id="nama_guru_list" class="form-select">
+                <option value="" selected class="text-capitalize">-</option>
+              </select>
+              <label for="">Pilih Pengajar 2</label>
             </div>
           </div>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success">Update</button>
+        <button type="submit" class="btn btn-success">Update</button>
         <button type="button" data-bs-dismiss="modal" class="btn btn-danger">Tutup</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded",()=>{
+    const updateButtons = document.querySelectorAll(".update-button");
+    
+    updateButtons.forEach(button =>{
+      button.addEventListener("click", async(event)=>{
+
+        const id_mapel = button.getAttribute('data-id_mapel');
+        const nama_mapel = button.getAttribute('data-nama-mapel');
+        const nama_pengajar = button.getAttribute('data-nama_pengajar');
+
+        document.getElementById("nama_mapel").value = nama_mapel;
+        // document.getElementById("id_mapel").value = id_mapel;
+
+
+        // Mengubah action form modal update
+        const updateForm = document.getElementById("updateForm");
+        updateForm.action = `/data/update_mapel/${id_mapel}`;
+
+
+        try {
+          // Memuat daftar wali kelas dari sumber yang sesuai (misalnya, AJAX request ke backend)
+          const daftarGuru = await loaddaftarGuru();
+
+          // Mengosongkan opsi-opsi sebelumnya dalam elemen <select>
+          const selectElement = document.getElementById("nama_guru_list");
+          selectElement.innerHTML = "";
+
+          // Menambahkan opsi-opsi wali kelas ke dalam elemen <select>
+          daftarGuru.forEach(guru_list => {
+            const option = document.createElement("option");
+            option.value = guru_list.nama_lengkap; // Ganti dengan nilai yang sesuai
+            option.text = guru_list.nama_lengkap + ' - ' + guru_list.bidang; // Ganti dengan nama yang sesuai
+            selectElement.appendChild(option);
+          });
+
+          // Memilih opsi wali kelas yang sesuai
+          for (let i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].text === nama_pengajar) {
+              selectElement.options[i].selected = true;
+              break; // Tambahkan break untuk menghentikan loop setelah opsi terpilih ditemukan
+            }
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+
+      });
+    });
+  })
+
+    // Fungsi untuk memuat daftar wali kelas dari backend (contoh)
+    async function loaddaftarGuru() {
+    try {
+      const response = await fetch("/data/guru_list"); // Ganti dengan endpoint yang sesuai
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error loading daftar:", error);
+      return [];
+    }
+  }
+</script>

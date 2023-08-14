@@ -8,23 +8,26 @@
 
       <div class="modal-body">
 
+        <form id="updateForm" method="POST">
+
+          
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="text" class="form-control" name="" id="" placeholder="testing">
+              <input type="text" class="form-control" name="" id="nama_siswa" placeholder="testing">
               <label id="modalUpdateSiswaLabel" for="modalUpdateSiswaLabel">Nama Siswa</label>
             </div>
           </div>
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="text" class="form-control" name="" id="" placeholder="testing">
+              <input type="text" class="form-control" name="nis" id="nis" placeholder="testing">
               <label id="modalUpdateSiswaLabel" for="modalUpdateSiswaLabel">NIS</label>
             </div>
           </div>
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="password" class="form-control" name="" id="" placeholder="testing">
+              <input type="password" class="form-control" name="password" id="password" placeholder="testing">
               <label id="modalUpdateSiswaLabel" for="modalUpdateSiswaLabel">Password</label>
             </div>
           </div>
@@ -41,30 +44,27 @@
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <select name="" id="" class="form-select">
-                <option value="" selected class="text-capitalize">-</option>
-              </select>
+              <input type="text" name="" id="jurusan_siswa" class="form-control">
               <label for="">Jurusan</label>
             </div>
           </div>
-
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="number" class="form-control" name="" id="" placeholder="testing">
+              <input type="text" class="form-control" name="no_hp" id="no_hp_siswa" placeholder="testing">
               <label id="modalUpdateSiswaLabel" for="modalUpdateSiswaLabel">Nomor Handphone</label>
             </div>
           </div>
-
+          
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="text" class="form-control" name="" id="" placeholder="testing">
+              <input type="text" class="form-control" name="alamat_siswa" id="alamat_siswa" placeholder="testing">
               <label id="modalUpdateSiswaLabel" for="modalUpdateSiswaLabel">Alamat</label>
             </div>
           </div>
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <select name="" id="" class="form-select">
+              <select name="" id="jenis_kelamin" class="form-select">
                 <option value="" selected class="text-capitalize">-</option>
                 <option value="L" class="text-capitalize">laki-laki</option>
                 <option value="P" class="text-capitalize">perempuan</option>
@@ -73,12 +73,47 @@
             </div>
           </div>
           
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success">Update</button>
-        <button type="button" data-bs-dismiss="modal" class="btn btn-danger">Tutup</button>
-      </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success">Update</button>
+          <button type="button" data-bs-dismiss="modal" class="btn btn-danger">Tutup</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const updateButtons = document.querySelectorAll('.update-button');
+
+    updateButtons.forEach(button => {
+      button.addEventListener("click", async (event) => {
+        const id_siswa = button.getAttribute("id_siswa");
+        const nama_siswa = button.getAttribute("data-nama-siswa");
+        const nis = button.getAttribute("data-nis");
+        const jurusanSiswa = button.getAttribute("data-jurusan");
+        const kelasSiswa = button.getAttribute("data-kelas-siswa");
+        const password = button.getAttribute("data-password");
+        const alamatSiswa = button.getAttribute("data-alamat-siswa");
+        const noHP = button.getAttribute("data-no-hp");
+        const jenisKelamin = button.getAttribute("data-jenis-kelamin");
+
+        document.getElementById("nama_siswa").value = nama_siswa;
+        document.getElementById("nis").value = nis;
+        document.getElementById("jurusan_siswa").value = jurusanSiswa;
+        document.getElementById("kelas_siswa").value = kelasSiswa;
+        document.getElementById("password").value = password;
+        document.getElementById("alamat_siswa").value = alamatSiswa;
+        document.getElementById("no_hp_siswa").value = noHP;
+        document.getElementById("jenis_kelamin").value = jenisKelamin;
+
+        // Mengubah action form modal update
+        const updateForm = document.getElementById("updateForm");
+        updateForm.action = `/data/update_siswa/${id_siswa}`;
+      });
+    });
+  });
+</script>

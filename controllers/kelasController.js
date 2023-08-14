@@ -17,7 +17,9 @@ exports.kelasPage = (req,res)=>{
       res.render('data_kelas',{
         kelasData:data,
         tableKelas: results,
-        notifSuksesTambah : false
+        //notifikasi
+        notifSuksesTambah : false,
+        notifSuksesUpdate : false
       });
     }
   });
@@ -165,14 +167,37 @@ exports.updateKelas = (req, res) => {
   const { nama_kelas, nama_wali_kelas } = req.body;
 
   const queryUpdate = 'UPDATE kelas SET nama_kelas = ?, nama_wali_kelas = ? WHERE id_kelas = ?';
-  db.query(queryUpdate, [nama_kelas, nama_wali_kelas, id_kelas], (err, results) => {
-    if (err) {
-      console.error('Error updating data in MySQL:', err);
-      res.status(500).json({ message: 'Error updating data' });
-      return;
+  const queryRead = 'SELECT * FROM kelas';
+
+  const data ={
+    title:"Data Kelas"
+  }
+
+  db.query(queryRead,(errRead,resultsRead)=>{
+    if(errRead){
+      console.error(err);
+      res.status(500).send(err);
     }
-    res.status(200).json({ message: 'Data updated successfully' });
-  });
+
+    else if(!errRead){
+      db.query(queryUpdate, [nama_kelas, nama_wali_kelas, id_kelas], (err, results) => {
+        if (err) {
+          console.error('Error updating data in MySQL:', err);
+          res.status(500).json({ message: 'Error updating data' });
+          return;
+        }
+        // res.status(200).json({ message: 'Data updated successfully' });
+        res.render('data_kelas',{
+          kelasData:data,
+          tableKelas: resultsRead,
+
+          //notifikasi
+          notifSuksesUpdate : true,
+          notifSuksesTambah : false
+        })
+      });
+    }
+  })
 };
 
 

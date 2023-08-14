@@ -11,9 +11,32 @@
 </head>
 <body>
   <%-include('layouts/header');%>
-      <!-- Tambahkan referensi jQuery -->
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Tambahkan referensi jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+  <% if (notifSuksesUpdate) { %>
+    <div class="toast ms-auto fade show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="fa-solid fa-square" style="color: #6892d9;"></i>
+        <strong class="me-auto">Notifikasi</strong>
+        <small><span id="countdown"></span> second ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Berhasil update data mapel
+      </div>
+    </div>
+    <script>
+      // Display the toast when the page loads
+      var toast = new bootstrap.Toast(document.querySelector('.toast'));
+      toast.show();
+  
+      // Redirect to /data/data_guru after a brief delay
+      setTimeout(function() {
+        window.location.href = '/data/data_mapel';
+      }, 5000); // Change the delay as needed (in milliseconds)
+    </script>
+  <% } %>
       
   <div class="container mt-5 mb-5">
     <div class="">
@@ -89,7 +112,11 @@
                 <td><%= tableMapel[i].nama_mapel %></td>
                 <td><%= tableMapel[i].nama_pengajar %></td>
                 <td>
-                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#modalUpdateMapel">
+                  <a href="#" class="text-decoration-none mx-2 update-button" data-bs-toggle="modal" data-bs-target="#modalUpdateMapel"
+                  data-id_mapel="<%= tableMapel[i].id_mapel %>",
+                  data-nama-mapel="<%= tableMapel[i].nama_mapel %>",
+                  data-nama_pengajar="<%= tableMapel[i].nama_pengajar%>"
+                  >
                     <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Update"></i>
                   </a>
     
@@ -145,8 +172,14 @@
     });
   </script>
 
+  <script>
+    var toast = new bootstrap.Toast(document.querySelector('.toast'));
+    toast.show();
+  </script>
+
   <script src="/js/liveSearch.js"></script>
   <script src="/js/enableTooltip.js"></script>
+  <script src="/js/countDown.js"></script>
   <%- include('detail/detail_mapel'); %>
   <%- include('delete/delete_mapel'); %>
   <%- include('update/update_mapel'); %>

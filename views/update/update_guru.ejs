@@ -7,66 +7,90 @@
       </div>
 
       <div class="modal-body">
+        <form method="POST" id="updateForm">
 
+          
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="text" class="form-control" name="" id="" placeholder="testing">
+              <input type="text" class="form-control" name="nama_guru" id="nama_guru" placeholder="testing">
               <label id="modalUpdateGuruLabel" for="modalUpdateGuruLabel">Nama Lengkap</label>
             </div>
           </div>
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="number" name="" value="" id="" class="form-control" placeholder="testing">
+              <input type="number" name="nip_guru" value="" id="nip_guru" class="form-control" placeholder="testing">
               <label for="">NIP</label>
             </div>
           </div>
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="" name="" value="" id="" class="form-control" placeholder="testing">
-              <label for="">Bidang</label>
+
+              <select id="bidang_guru" name="bidang" class="form-select">
+                <option value="">-</option>
+                <option value="bahasa sastra inggris">Bahasa Sastra Inggris</option>
+                <option value="bahasa sastra indonesia">Bahasa Sastra Indonesia</option>
+                <option value="bahasa sastra german">Bahasa Sastra German</option>
+                <option value="sejarah">Sejarah</option>
+                <option value="IPA-KIMIA">IPA - Kimia</option>
+                <option value="ipa - fisika">IPA - Fisika</option>
+                <option value="IPA - BIOLOGI">IPA - Biologi</option>
+                <option value="ips - sosiologi">IPS - Sosiologi</option>
+                <option value="ips - geografi">IPS - Geografi</option>
+                <option value="ips - ekonomi">IPS - Ekonomi</option>
+                <option value="ilmu keolahragaan">Ilmu Keolahragaan</option>
+                <option value="pendidikan kewarganegaraan">Pendidikan Kewarganegaraan</option>
+                <option value="pendidikan agama kristen">Pendidikan Agama Kristen</option>
+                <option value="pendidikan agama islam">Pendidikan Agama Islam</option>
+                <option value="pendidikan agama hindu">Pendidikan Agama Hindu</option>
+                <option value="pendidikan agama katholik">Pendidikan Agama Katholik</option>
+                <option value="ilmu matematika">Ilmu Matematika</option>
+                <option value="seni budaya">Seni Budaya</option>
+                <option value="teknik informatika">Teknik Informatika</option>
+              </select>
+              <label for="subject">Bidang:</label>
             </div>
           </div>
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="email" name="" value="" id="" class="form-control" placeholder="testing">
+              <input type="email" name="email_guru" value="" id="email_guru" class="form-control" placeholder="testing">
               <label for="">Email</label>
             </div>
           </div>
-
+          
           <div class="col-md-8 mb-1">
             <div class="form-floating">
               <input type="password" name="" value="" id="" class="form-control" placeholder="testing">
               <label for="">Password</label>
             </div>
           </div>
-
+          
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="" name="" value="Guru" id="" class="form-control" placeholder="testing">
+              <input type="text"  id="role_guru" name="role_guru" class="form-control" placeholder="testing">
               <label for="">Role</label>
             </div>
           </div>
-
+          
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="number" name="" value="" id="" class="form-control" placeholder="testing">
+              <input type="number" name="no_hp" id="no_hp" class="form-control" placeholder="testing">
               <label for="">No HP</label>
             </div>
           </div>
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="text" name="" value="" id="" class="form-control" placeholder="testing">
+              <input type="text" name="alamat" value="" id="alamat" class="form-control" placeholder="testing">
               <label for="">Alamat</label>
             </div>
           </div>
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <select name="" id="" class="form-select">
+              <select name="jenis_kelamin" id="jenis_kelamin" class="form-select text-capitalize">
                 <option value="" selected class="text-capitalize">-</option>
                 <option value="L" class="text-capitalize">laki-laki</option>
                 <option value="P" class="text-capitalize">perempuan</option>
@@ -77,9 +101,10 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success">Update</button>
+        <button type="submit" class="btn btn-success">Update</button>
         <button type="button" data-bs-dismiss="modal" class="btn btn-danger">Tutup</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
@@ -90,25 +115,37 @@
 
   //menambah event listener utk button update.
 
-  document.addEventListener("DOMContentLoaded"),()=>{
+  document.addEventListener("DOMContentLoaded",()=>{
     const updateButtons = document.querySelectorAll(".update-button");
     
     updateButtons.forEach(button =>{
-      button.addEventListener("click", async,(event)=>{
-        const id_guru = button.getAttribute('id')
-        const nama_guru = button.getAttribute('nama_guru')
-        const nip = button.getAttribute('nip')
-        const bidang_guru = button.getAttribute('bidang')
-        const email = button.getAttribute('email')
-        const role = button.getAttribute('role')
-        const noHP = button.getAttribute('no_hp')
-        const alamat = button.getAttribute('alamat')
-        const jenisKelamin = button.getAttribute('jenis_kelamin')
+      button.addEventListener("click", async(event)=>{
+        const id_guru = button.getAttribute('data-id_guru')
+        const nama_guru = button.getAttribute('data-nama_guru')
+        const nip = button.getAttribute('data-nip')
+        const bidang = button.getAttribute('data-bidang')
+        const email = button.getAttribute('data-email')
+        const role = button.getAttribute('data-role')
+        const noHP = button.getAttribute('data-no_hp')
+        const alamat = button.getAttribute('data-alamat')
+        const jenisKelamin = button.getAttribute('data-jenis_kelamin')
 
         // Mengisi data ke modal update
-        document.getElementById("").value = nama_guru;
+        document.getElementById("nama_guru").value = nama_guru;
+        document.getElementById("nip_guru").value = nip;
+        document.getElementById("email_guru").value = email;
+        document.getElementById("no_hp").value = noHP;
+        document.getElementById("alamat").value = alamat;
+        document.getElementById("role_guru").value = role;
+        document.getElementById("jenis_kelamin").value = jenisKelamin;
+        document.getElementById("bidang").value = bidang;
+
+        // Mengubah action form modal update
+        const updateForm = document.getElementById("updateForm");
+        updateForm.action = `/data/update_guru/${id_guru}`;
+
       });
     });
-  }
+  });
 
 </script>

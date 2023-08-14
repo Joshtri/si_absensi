@@ -12,15 +12,41 @@
 </head>
 <body>
   <%- include('layouts/header'); %>
-     <!-- Tambahkan referensi jQuery -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Tambahkan referensi jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+  <% if (notifSuksesUpdate) { %>
+    <div class="toast ms-auto fade show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="fa-solid fa-square" style="color: #6892d9;"></i>
+        <strong class="me-auto">Notifikasi</strong>
+        <small><span id="countdown"></span> second ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Berhasil update data
+      </div>
+    </div>
+    <script>
+      // Display the toast when the page loads
+      var toast = new bootstrap.Toast(document.querySelector('.toast'));
+      toast.show();
   
+      // Redirect to /data/data_guru after a brief delay
+      setTimeout(function() {
+        window.location.href = '/data/data_guru';
+      }, 6000); // Change the delay as needed (in milliseconds)
+    </script>
+  <% } %>
+
+
 
   <div class="container mt-1">
     <div class="">
+
       <h3 class="text-center animate__animated animate__bounce"><%= guruData.title %></h3>
       <div class="container-sm mt-2">
+        
         
         <div class="card bg-gradient bg-light mb-3 animate__animated animate__lightSpeedInRight">
           <div class="card-body">
@@ -78,6 +104,7 @@
         </div>
 
 
+
         <table class="table table-hover rounded table-bordered shadow mb-5 animate__animated animate__lightSpeedInLeft" id="dataTable">
           <thead class="table-dark text-center">
             <th>No.</th>
@@ -96,8 +123,8 @@
                 <td class="col-md-1"><%= tableGuru[i].nip %></td>
                 <td class="col-md-2"><%= tableGuru[i].email %></td>
                 <td>
-                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#modalUpdateGuru"
-                  data-id="<%= tableGuru[i].id_guru %>",
+                  <a href="#" class="text-decoration-none mx-2 update-button" data-bs-toggle="modal" data-bs-target="#modalUpdateGuru"
+                  data-id_guru="<%= tableGuru[i].id_guru %>",
                   data-nama_guru="<%= tableGuru[i].nama_lengkap%>",
                   data-nip="<%= tableGuru[i].nip %>",
                   data-email="<%= tableGuru[i].email %>",
@@ -171,10 +198,14 @@
   </script>
 
   
+  <script>
+    var toast = new bootstrap.Toast(document.querySelector('.toast'));
+    toast.show();
+  </script>
 
   <script src="/js/enableTooltip.js"></script>
 
-  
+  <script src="/js/countDown.js"></script>
   <script src="/js/liveSearch.js"></script>
   <%- include('detail/detail_guru'); %>
   <%- include('delete/delete_guru'); %>

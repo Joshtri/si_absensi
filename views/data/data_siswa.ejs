@@ -91,7 +91,16 @@
                 <td><%= tableSiswa[i].nis %></td>
                 <td><%= tableSiswa[i].no_hp %></td>
                 <td>
-                  <a href="#" class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#modalUpdateSiswa">
+                  <a class="text-decoration-none mx-2 update-button" data-bs-toggle="modal" data-bs-target="#modalUpdateSiswa"
+                  data-nama-siswa="<%= tableSiswa[i].nama_siswa %>",
+                  data-nis="<%= tableSiswa[i].nis %>",
+                  data-jurusan="<%= tableSiswa[i].jurusan %>",
+                  data-kelas_siswa="<%= tableSiswa[i].kelas_siswa %>",
+                  data-password="<%= tableSiswa[i].password %>",
+                  data-alamat_siswa="<%= tableSiswa[i].alamat %>",
+                  data-no_hp="<%= tableSiswa[i].no_hp %>",
+                  data-jenis-kelamin="<%= tableSiswa[i].jenis_kelamin %>"
+                  >
                     <i class="fa-solid fa-pen-to-square link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Update"></i>
                   </a>
 
@@ -99,15 +108,16 @@
                     <i class="fa-solid fa-trash-can link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Delete"></i>
                   </a>
                   
-                  <a class="text-decoration-none mx-2" data-bs-toggle="modal" data-bs-target="#detailModalSiswa"
-                  
-                  data-nama_siswa="<%= tableSiswa[i].nama_siswa %>",
+                  <a class="text-decoration-none mx-2 update-button" data-bs-toggle="modal" data-bs-target="#modalUpdateSiswa"
+                  data-nama-siswa="<%= tableSiswa[i].nama_siswa %>",
                   data-nis="<%= tableSiswa[i].nis %>",
-                  data-kelas_siswa="<%= tableSiswa[i].kelas_siswa %>",
-                  data-alamat="<%= tableSiswa[i].alamat %>",
-                  data-no_hp="<%= tableSiswa[i].no_hp %>",
-                  data-jenis_kelamin="<%= tableSiswa[i].jenis_kelamin %>",
-                  >
+                  data-jurusan="<%= tableSiswa[i].jurusan %>",
+                  data-kelas-siswa="<%= tableSiswa[i].kelas_siswa %>",
+                  data-password="<%= tableSiswa[i].password %>",
+                  data-alamat-siswa="<%= tableSiswa[i].alamat %>",
+                  data-no-hp="<%= tableSiswa[i].no_hp %>",
+                  data-jenis-kelamin="<%= tableSiswa[i].jenis_kelamin %>",
+                >
                     <i class="fa-solid fa-info link-dark link-offset-2-hover link-opacity-75-hover" data-bs-toggle="tooltip" title="Detail"></i>
                   </a>
                   

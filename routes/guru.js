@@ -8,5 +8,8 @@ router.get('/add_guru', guruController.guruAddPage);
 router.post('/post_guru', guruController.guruAdd);
 
 router.post('/delete_guru', guruController.deleteGuru);
+router.post('/update_guru/:id_guru', guruController.updateGuru);
+
+
 
 module.exports = router;

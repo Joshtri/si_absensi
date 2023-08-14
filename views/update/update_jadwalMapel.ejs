@@ -20,16 +20,17 @@
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <select name="" id="" class="form-select">
-                <option value="" selected class="text-capitalize">-</option>
+              <select name="nama_mapel_list" id="nama_mapel_list" class="form-select">
+                <option value="" class="text-capitalize">-</option>
               </select>
               <label for="">Nama Mata Pelajaran</label>
+
             </div>
           </div>
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <select name="" id="" class="form-select">
+              <select name="nama_guru_list" id="nama_guru_list" class="form-select">
                 <option value="" selected class="text-capitalize">-</option>
               </select>
               <label for="">Nama Pengajar</label>
@@ -38,7 +39,7 @@
 
           <div class="col-md-8 mb-1">
             <div class="form-floating">
-              <input type="time" id="" name="" class="form-control" placeholder="req">
+              <input type="time" id="jam_mulai_kelas" name="jam_mulai_kelas" class="form-control" placeholder="req">
               <label for="">Jam Mulai</label>
             </div>
           </div>
@@ -53,7 +54,7 @@
           <div class="col-md-4 mt-3">
             <div class="form-floating">
 
-              <select id="hari" name="hari" class="form-select" required>
+              <select id="hari_kelas" name="hari_kelas" class="form-select" required>
                 <option  selected>-</option>
                 <option value="Senin">Senin</option>
                 <option value="Selasa">Selasa</option>
@@ -77,5 +78,108 @@
 
 
 <script>
-  
+  // Menambahkan event listener untuk tombol update
+  document.addEventListener("DOMContentLoaded", () => {
+    const updateButtons = document.querySelectorAll(".update-button");
+
+    updateButtons.forEach(button => {
+      button.addEventListener("click", async (event) => {
+        // const id_kelas = button.getAttribute("data-id_kelas");
+        const nama_mapel = button.getAttribute("data-nama_mapel");
+        const nama_kelas = button.getAttribute("data-nama_kelas");
+        const hari_mapel = button.getAttribute("data-hari");
+        // const nama_pengajar = button.getAttribute("data-nama_mapel");
+
+        const jam_mulai= button.getAttribute("data-jam_mulai");
+
+        // Mengisi data ke modal update
+        document.getElementById("nama_kelas").value = nama_kelas;
+        document.getElementById("hari_kelas").value = hari_mapel;
+        document.getElementById("jam_mulai_kelas").value = jam_mulai;
+
+        // Mengubah action form modal update
+        const updateForm = document.getElementById("updateForm");
+        // updateForm.action = `/data/update_kelas/${id_kelas}`;
+
+        // try {
+        //   // Memuat daftar wali kelas dari sumber yang sesuai (misalnya, AJAX request ke backend)
+        //   const daftarGuru = await loaddaftarGuru();
+
+        //   // Mengosongkan opsi-opsi sebelumnya dalam elemen <select>
+        //   const selectElement = document.getElementById("nama_guru_list");
+        //   selectElement.innerHTML = "";
+
+        //   // Menambahkan opsi-opsi wali kelas ke dalam elemen <select>
+        //   daftarGuru.forEach(guru_list => {
+        //     const option = document.createElement("option");
+        //     option.value = guru_list.nama_lengkap; // Ganti dengan nilai yang sesuai
+        //     option.text = guru_list.nama_lengkap + ' - ' + guru_list.bidang; // Ganti dengan nama yang sesuai
+        //     selectElement.appendChild(option);
+        //   });
+
+        //   // Memilih opsi wali kelas yang sesuai
+        //   for (let i = 0; i < selectElement.options.length; i++) {
+        //     if (selectElement.options[i].text === nama_pengajar) {
+        //       selectElement.options[i].selected = true;
+        //       break; // Tambahkan break untuk menghentikan loop setelah opsi terpilih ditemukan
+        //     }
+        //   }
+        // } catch (error) {
+        //   console.error("Error:", error);
+        // }
+
+        //mapel
+        try {
+          // Memuat daftar wali kelas dari sumber yang sesuai (misalnya, AJAX request ke backend)
+          const daftarMapel = await loaddaftarMapel();
+
+          // Mengosongkan opsi-opsi sebelumnya dalam elemen <select>
+          const selectElement = document.getElementById("nama_mapel_list");
+          selectElement.innerHTML = "";
+
+          // Menambahkan opsi-opsi wali kelas ke dalam elemen <select>
+          daftarMapel.forEach(mapel_list => {
+            const option = document.createElement("option");
+            option.value = mapel_list.nama_mapel; // Ganti dengan nilai yang sesuai
+            option.text = mapel_list.nama_mapel + ' - ' + mapel_list.nama_pengajar; // Ganti dengan nama yang sesuai
+            selectElement.appendChild(option);
+          });
+
+          // Memilih opsi wali kelas yang sesuai
+          for (let i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].text === nama_mapel) {
+              selectElement.options[i].selected = true;
+              break; // Tambahkan break untuk menghentikan loop setelah opsi terpilih ditemukan
+            }
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      });
+    });
+  });
+
+  //   // Fungsi untuk memuat daftar wali kelas dari backend (contoh)
+  //   async function loaddaftarGuru() {
+  //   try {
+  //     const response = await fetch("/data/guru_list"); // Ganti dengan endpoint yang sesuai
+  //     const data = await response.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error("Error loading daftar:", error);
+  //     return [];
+  //   }
+  // }
+
+      // Fungsi untuk memuat daftar wali kelas dari backend (contoh)
+    async function loaddaftarMapel() {
+    try {
+      const response = await fetch("/data/mapel_list"); // Ganti dengan endpoint yang sesuai
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error loading mapel list:", error);
+      return [];
+    }
+  }
 </script>
